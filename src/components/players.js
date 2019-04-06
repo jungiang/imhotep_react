@@ -4,39 +4,35 @@ import 'materialize-css/dist/css/materialize.min.css';
 import 'materialize-css/dist/js/materialize.js';
 
 class Players extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            name: 'Jason',
-            color: 'black',
-            stones: [],
-            score: 10,
-            icon: pug,
-            cards: []
-        }
+    state = {
+        name: 'Jason',
+        color: 'black',
+        stones: [],
+        score: 10,
+        icon: pug,
+        cards: []
     }
 
     handleBlockRecharge = () => {
-        const { stones, color } = this.state.stones;
+        const { stones, color } = this.state;
 
         if (stones.length < 3) {
-            const newStones = [{ color }, { color }, { color }];
             this.setState({
-                stones: stones.push(...newStones)
+                stones: [...stones, { color }, { color }, { color }]
             });
+            return
         }
         if (stones.length === 3) {
-            const newStones = [{ color }, { color }];
             this.setState({
-                stones: stones.push(...newStones)
+                stones: [...stones, { color }, { color }]
             });
+            return
         }
         if (stones.length === 4) {
-            const newStones = [{ color }];
             this.setState({
-                stones: stones.push(newStones)
+                stones: [...stones, { color }]
             });
+            return
         }
         if (stones.length === 5) {
             return
@@ -46,9 +42,10 @@ class Players extends Component {
     render() {
         const { name, stones, score, icon, cards } = this.state;
         const stoneCount = stones.length;
+        console.log(stoneCount);
 
         return (
-            <div className="row">
+            <div className="row center">
                 <div className="col s4 m3">
                     <div className="card orange darken-1">
                         <div className="card-content white-text">
@@ -56,16 +53,18 @@ class Players extends Component {
                             <p>Score: {score}</p>
                             <img src={icon} alt="pug" />
                             <p>Stones: {stoneCount}</p>
-                            <div className="fixed-action-btn">
+                            <div onClick={this.handleBlockRecharge} className="fixed-action-btn rechargeMainBtn">
                                 <a className="btn-floating btn-med red">
-                                    <i className="large material-icons">add_circle</i>
+                                    <i className="large material-icons">x</i>
                                 </a>
                                 <ul>
-                                    <li onClick={this.handleBlockRecharge}><a className="btn-floating red"><i className="material-icons">check</i></a></li>
+                                    <li><a className="btn-floating red"><i className="material-icons">check</i></a></li>
                                     <li><a className="btn-floating blue darken-1"><i className="material-icons">close</i></a></li>
                                 </ul>
                             </div>
-                            <p onClick={this.displayCards}>Cards</p>
+                            <div className="cards container">
+                                <p>Cards</p>
+                            </div>
                         </div>
                     </div>
                 </div>

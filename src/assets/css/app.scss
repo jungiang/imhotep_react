@@ -6,6 +6,12 @@
 body {
     margin: 0;
 
+    .fixed-action-btn {
+        position: absolute;
+        left: 334px;
+        bottom: 23px;
+    }
+
     .app {
         background-color: #000;
         color: #FFF;
@@ -31,6 +37,8 @@ body {
         }
     }
 }
+
+
 
 @keyframes spin {
     from {
