@@ -1,7 +1,11 @@
 import React, {Component} from 'react';
 import '../assets/css/app.scss';
 import Ship from './ship';
+
 import CreateBlock from './createBlock';
+
+import Temple from './temple';
+
 
 class App extends Component {
     state = {
@@ -21,6 +25,7 @@ class App extends Component {
             harbor: [...harbor, newHarbor]
         })
     }
+
     createBlockTest(){
         const {blockList} = this.state;
         const newBlockList = [];
@@ -32,6 +37,7 @@ class App extends Component {
     moveBlockTest(){
         
     }
+
     render(){
         const {harbor, blockList} = this.state;
         return (
@@ -42,9 +48,10 @@ class App extends Component {
                     {blockList}
                 </div>{/*testing for create/add blocks*/}
                 {harbor}
+                <Temple/>
             </div>    
         )
     }
-};
+}
 
 export default App;

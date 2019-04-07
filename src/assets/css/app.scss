@@ -41,6 +41,7 @@ body {
     }
 }
 
+
 .block-test-area {
     height: 100px;
     width: 100vw;
@@ -50,4 +51,31 @@ body {
     height: 100px;
     width: 100px;
     display: inline-block;
+
+//Temple
+.temple{
+    height:15vh;
+    width:40vw;
+    background-color: rgb(250, 96, 96);
+    position: absolute;
+    right: 0;
+    top: 20%;
+};
+
+.blockContainer{
+    height: 50%;
+    width: 80%;
+    background-color: rgb(95, 95, 255);
+    position: absolute;
+    top: 10%;
+    left: 20%;
+};
+.blockTest{
+    height:90%;
+    width: 18%;
+    position: relative;
+    display:inline-block;
+    background-color: chartreuse;
+    margin-left: 5px;
+
 }
