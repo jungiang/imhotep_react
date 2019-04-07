@@ -25,64 +25,66 @@ body {
         flex-direction: column; 
         box-shadow: 2px 2px 2px grey; 
         background-color: #F1F1F1;
-    }
-    .player-title {
-        display: flex;
-        justify-content: center;
-        height: 33%;
-        width: 100%;
-        margin-bottom: -11px;
-    }
 
-    .player-name {
-        font-size: 18px;
-        font-weight: bold;
-        margin-top: 0.50em;
-    }
+        .player-title {
+            display: flex;
+            justify-content: center;
+            height: 33%;
+            width: 100%;
+            margin-bottom: -11px;
 
-    .player-stats {
-        display: flex;
-        justify-content: space-around;
-        height: 39%;
-        width: 100%;
-        font-size: 12px;
-        padding-top: 14px;
-    }
+            .player-name {
+                font-size: 18px;
+                font-weight: bold;
+                margin-top: 0.50em;
+            }
 
-    .player-btns {
-        display: flex;
-        justify-content: space-evenly;
-        height: 33%;
-        width: 100%;
-        margin-top: 8px;
-    }
+            .player-icon {
+                height: 116%;
+                width: 12%;
+                border-radius: 50px;
+                margin: 4px 10px 0px -25px;
+            }
+        }
 
-    .player-icon {
-        height: 116%;
-        width: 12%;
-        border-radius: 50px;
-        margin: 4px 10px 0px -25px;
-    }
-    .recharge-btn {
-        height: 58%;
-        width: 40%;
-        line-height: 15px;
-        font-size: 11px;
-        top: 7px;
-    }
-    .card-btn {
-        height: 58%;
-        width: 40%;
-        line-height: 15px;
-        font-size: 11px;
-        top: 7px;
-    }
+        .player-stats {
+            display: flex;
+            justify-content: space-around;
+            height: 39%;
+            width: 100%;
+            font-size: 12px;
+            padding-top: 14px;
 
-    .player-score {
-        display: inline-block;
-    }
+            .player-score {
+                display: inline-block;
+            }
+        
+            .player-stonecount {
+                display: inline-block;
+            }
+        }
 
-    .player-stonecount {
-        display: inline-block;
-    }
+        .player-btns {
+            display: flex;
+            justify-content: space-evenly;
+            height: 33%;
+            width: 100%;
+            margin-top: 8px;
+
+            .recharge-btn {
+                height: 58%;
+                width: 40%;
+                line-height: 15px;
+                font-size: 11px;
+                top: 7px;
+            }
+            .card-btn {
+                height: 58%;
+                width: 40%;
+                line-height: 15px;
+                font-size: 11px;
+                top: 7px;
+            }
+        }
+    }   
 }

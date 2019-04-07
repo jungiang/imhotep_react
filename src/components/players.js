@@ -1,8 +1,7 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import pug from '../assets/images/pug8.jpeg';
 import 'materialize-css/dist/css/materialize.min.css';
 import 'materialize-css/dist/js/materialize.js';
-import Carousel from './carousel';
 
 class Players extends Component {
     state = {
@@ -12,18 +11,6 @@ class Players extends Component {
         score: 10,
         icon: pug,
         cards: []
-    }
-
-    renderPhotos() {
-        return (
-            <Fragment>
-                <a class="carousel-item" href="#one!"><img src="https://lorempixel.com/250/250/nature/1" /></a>
-                <a class="carousel-item" href="#two!"><img src="https://lorempixel.com/250/250/nature/2" /></a>
-                <a class="carousel-item" href="#three!"><img src="https://lorempixel.com/250/250/nature/3" /></a>
-                <a class="carousel-item" href="#four!"><img src="https://lorempixel.com/250/250/nature/4" /></a>
-                <a class="carousel-item" href="#five!"><img src="https://lorempixel.com/250/250/nature/5" /></a>
-            </Fragment>
-        )
     }
 
     handleBlockRecharge = () => {
@@ -55,7 +42,6 @@ class Players extends Component {
     render() {
         const { name, stones, score, icon, cards } = this.state;
         const stoneCount = stones.length;
-        const photos = this.renderPhotos();
         console.log(stones);
 
         return (
@@ -72,7 +58,6 @@ class Players extends Component {
                     <a onClick={this.renderPhotos} className="card-btn waves-effect waves-light btn-small orange">Cards</a>
                     <a onClick={this.handleBlockRecharge} className="recharge-btn waves-effect waves-light btn-small red">Recharge</a>
                 </div>
-                <Carousel photos={photos} />
             </div>
         )
     }

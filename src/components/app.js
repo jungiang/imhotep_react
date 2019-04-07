@@ -4,9 +4,7 @@ import Players from './players';
 
 const App = () => (
     <div>
-        <div>
             <Players />
-        </div>
     </div>
 );
 
