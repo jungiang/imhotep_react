@@ -40,3 +40,14 @@ body {
         transform: rotate(360deg);
     }
 }
+
+.block-test-area {
+    height: 100px;
+    width: 100vw;
+}
+
+.block {
+    height: 100px;
+    width: 100px;
+    display: inline-block;
+}
