@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Temple from './components/temple';
 import App from './components/app';
+import Temple from './components/temple';
 
 ReactDOM.render(
-    <Temple/>,
+    <App/>,
     document.getElementById('root')
 );

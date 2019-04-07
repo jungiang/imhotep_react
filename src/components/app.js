@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import '../assets/css/app.scss';
 import Ship from './ship';
+import Temple from './temple';
 
 class App extends Component {
     state = {
@@ -18,6 +19,7 @@ class App extends Component {
             harbor: newHarbor
         })
     }
+
     render(){
         const {harbor} = this.state;
         return (
@@ -25,6 +27,7 @@ class App extends Component {
                 <h1 className="title">Imhotep</h1>
                 <h3 className="slogan">The Egyptian Game From Hell</h3>
                 {harbor}
+                <Temple/>
             </div>    
         )
     }
