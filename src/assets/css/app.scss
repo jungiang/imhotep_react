@@ -41,6 +41,17 @@ body {
     }
 }
 
+
+.block-test-area {
+    height: 100px;
+    width: 100vw;
+}
+
+.block {
+    height: 100px;
+    width: 100px;
+    display: inline-block;
+
 //Temple
 .temple{
     height:15vh;
@@ -66,4 +77,5 @@ body {
     display:inline-block;
     background-color: chartreuse;
     margin-left: 5px;
+
 }

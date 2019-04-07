@@ -13,11 +13,17 @@ class Ship extends Component{
             image: image1
         }
     }
+    componentDidMount(){
+        //set the randomized ship state?
+    }
+    addBlockToShip(){
+
+    }
     render(){
         const {image} = this.dummyData;//this will be this.props when dynamic
         return(
             <div className="ship_dock">
-                <img src={image} alt="ship" height="100px" width="200px"/>
+                <img src={image} alt="ship" height="120px" width="200px"/>
             </div>
         )
     }
