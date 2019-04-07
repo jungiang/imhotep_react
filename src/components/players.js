@@ -1,36 +1,49 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import pug from '../assets/images/pug8.jpeg';
 import 'materialize-css/dist/css/materialize.min.css';
 import 'materialize-css/dist/js/materialize.js';
+import Carousel from './carousel';
 
 class Players extends Component {
     state = {
         name: 'Jason',
         color: 'black',
-        stones: [],
+        stones: ['black'],
         score: 10,
         icon: pug,
         cards: []
     }
 
+    renderPhotos() {
+        return (
+            <Fragment>
+                <a class="carousel-item" href="#one!"><img src="https://lorempixel.com/250/250/nature/1" /></a>
+                <a class="carousel-item" href="#two!"><img src="https://lorempixel.com/250/250/nature/2" /></a>
+                <a class="carousel-item" href="#three!"><img src="https://lorempixel.com/250/250/nature/3" /></a>
+                <a class="carousel-item" href="#four!"><img src="https://lorempixel.com/250/250/nature/4" /></a>
+                <a class="carousel-item" href="#five!"><img src="https://lorempixel.com/250/250/nature/5" /></a>
+            </Fragment>
+        )
+    }
+
     handleBlockRecharge = () => {
-        const { stones, color } = this.state;
+        const { stones, color } = this.state; // will pull Stone component from props once it's constructed
 
         if (stones.length < 3) {
             this.setState({
-                stones: [...stones, { color }, { color }, { color }]
+                stones: [...stones, color, color, color]
             });
             return
         }
         if (stones.length === 3) {
             this.setState({
-                stones: [...stones, { color }, { color }]
+                stones: [...stones, color, color]
             });
             return
         }
         if (stones.length === 4) {
             this.setState({
-                stones: [...stones, { color }]
+                stones: [...stones, color]
             });
             return
         }
@@ -42,32 +55,24 @@ class Players extends Component {
     render() {
         const { name, stones, score, icon, cards } = this.state;
         const stoneCount = stones.length;
-        console.log(stoneCount);
+        const photos = this.renderPhotos();
+        console.log(stones);
 
         return (
-            <div className="row center">
-                <div className="col s4 m3">
-                    <div className="card orange darken-1">
-                        <div className="card-content white-text">
-                            <span className="card-title">{name}</span>
-                            <p>Score: {score}</p>
-                            <img src={icon} alt="pug" />
-                            <p>Stones: {stoneCount}</p>
-                            <div onClick={this.handleBlockRecharge} className="fixed-action-btn rechargeMainBtn">
-                                <a className="btn-floating btn-med red">
-                                    <i className="large material-icons">x</i>
-                                </a>
-                                <ul>
-                                    <li><a className="btn-floating red"><i className="material-icons">check</i></a></li>
-                                    <li><a className="btn-floating blue darken-1"><i className="material-icons">close</i></a></li>
-                                </ul>
-                            </div>
-                            <div className="cards container">
-                                <p>Cards</p>
-                            </div>
-                        </div>
-                    </div>
+            <div className="player-container">
+                <div className="player-title">
+                    <img src={icon} alt="player-icon" className="player-icon" />
+                    <span className="player-name">{name}</span><br></br>
                 </div>
+                <div className="player-stats">
+                    <p className="player-score">Score: {score}</p>
+                    <p className="player-stonecount">Stones: {stoneCount}</p>
+                </div>
+                <div className="player-btns">
+                    <a onClick={this.renderPhotos} className="card-btn waves-effect waves-light btn-small orange">Cards</a>
+                    <a onClick={this.handleBlockRecharge} className="recharge-btn waves-effect waves-light btn-small red">Recharge</a>
+                </div>
+                <Carousel photos={photos} />
             </div>
         )
     }
