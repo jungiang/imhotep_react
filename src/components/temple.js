@@ -46,7 +46,6 @@ class Temple extends Component {
 
 
     addPlayerCounter(color){
-        debugger;
         const {players} = this.state;
         if(!(players[color])){
             players[color] = 1

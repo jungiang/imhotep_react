@@ -19,7 +19,7 @@ class App extends Component {
         const {harbor} = this.state;
         const newHarbor = [];
         for(let i = 0; i < 4; i++){
-            newHarbor.push(<Ship key={i}/>);
+            newHarbor.push(<Ship key={i} moveBlockTest={this.moveBlockTest.bind(this)}/>);
         }
         this.setState({
             harbor: [...harbor, newHarbor]
@@ -35,7 +35,14 @@ class App extends Component {
         })
     }//block test
     moveBlockTest(){
-        
+        const {blockList} = this.state;
+        if(blockList.length > 0){
+            const block = blockList.pop();
+            this.setState({
+                blockList: [...blockList]
+            })
+            return block;
+        }
     }
 
     render(){
