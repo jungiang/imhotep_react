@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Block from './createBlock';
 import pug from '../assets/images/pug8.jpeg';
 import 'materialize-css/dist/css/materialize.min.css';
 import 'materialize-css/dist/js/materialize.js';
@@ -6,36 +7,51 @@ import 'materialize-css/dist/js/materialize.js';
 class Players extends Component {
     state = {
         name: 'Jason',
-        color: 'black',
-        stones: ['black'],
+        stones: [],
         score: 10,
         icon: pug,
         cards: []
     }
 
     handleBlockRecharge = () => {
-        const { stones, color } = this.state; // will pull Stone component from props once it's constructed
+        const { stones } = this.state;
 
         if (stones.length < 3) {
             this.setState({
-                stones: [...stones, color, color, color]
+                stones: [...stones, <Block/>, <Block/>, <Block/>]
             });
             return
         }
         if (stones.length === 3) {
             this.setState({
-                stones: [...stones, color, color]
+                stones: [...stones, <Block/>, <Block/>]
             });
             return
         }
         if (stones.length === 4) {
             this.setState({
-                stones: [...stones, color]
+                stones: [...stones, <Block/>]
             });
             return
         }
         if (stones.length === 5) {
             return
+        }
+    }
+
+    moveStoneToShip() {
+        const { stones } = this.state;
+
+        if (stones.length === 0){
+            return false
+        } else {
+            const newStoneArray = [...stones];
+            const StoneDiv = newStoneArray.pop();
+            this.setState({
+                stones: newStoneArray
+            });
+
+            return StoneDiv
         }
     }
 
