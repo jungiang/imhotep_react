@@ -1,12 +1,10 @@
 import React, {Component} from 'react';
 import '../assets/css/app.scss';
 import Players from './players';
-
 import Ship from './ship';
-
 import CreateBlock from './createBlock';
-
 import Temple from './temple';
+import Dashboard from './dashboard';
 
 
 class App extends Component {
@@ -51,6 +49,7 @@ class App extends Component {
         const {harbor, blockList} = this.state;
         return (
             <div className="header">
+                <Dashboard />
                 <h1 className="title">Imhotep</h1>
                 <h3 className="slogan">The Egyptian Game From Hell</h3>
                 <Players />
