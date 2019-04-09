@@ -11,11 +11,27 @@ import Temple from './temple';
 
 class App extends Component {
     state = {
+        players: [],
         harbor: [],
-        blockList: []//block test
+        blockList: [],//block test
+        currentPlayer: null
     }
     componentDidMount(){
-        this.createHarborElement()
+        this.createHarborElement();
+        this.createPlayerElement(4);
+        this.setState({
+            currentPlayer: players[0]
+        })
+    }
+    createPlayerElement(number){
+        const {players} = this.state;
+        const newPlayer = [];
+        for(let i = 0; i < number; i++){
+            newPlayer.push(<Players key={i} checkPlayerBlock={this.checkPlayerBlock.bind(this)}/>);
+        }
+        this.setState({
+            players: [...players, newPlayer]
+        })
     }
     createHarborElement(){
         const {harbor} = this.state;
@@ -27,7 +43,9 @@ class App extends Component {
             harbor: [...harbor, newHarbor]
         })
     }
-
+    checkPlayerBlock = block=>{
+        return block;
+    }
     createBlockTest(){
         const {blockList} = this.state;
         const newBlockList = [];
@@ -37,28 +55,36 @@ class App extends Component {
         })
     }//block test
     moveBlockTest(){
-        const {blockList} = this.state;
-        if(blockList.length > 0){
-            const block = blockList.pop();
-            this.setState({
-                blockList: [...blockList]
-            })
-            return block;
+        // const clickedShip = clickedShip;
+        const {currentPlayer} = this.state;
+        const block = currentPlayer.checkPlayerBlock();
+        if(!block){
+            alert('player has no blocks');
         }
+        return block;
+        // if(block){
+        //     const block = blockList.pop();
+        //     this.setState({
+        //         blockList: [...blockList]
+        //     })
+        //     return block;
+        // }
     }
-
+    shipDockedToDestination(){
+        
+    }
     render(){
         const {harbor, blockList} = this.state;
         return (
             <div className="header">
                 <h1 className="title">Imhotep</h1>
                 <h3 className="slogan">The Egyptian Game From Hell</h3>
-                <Players />
+                <Players checkPlayerBlock={this.checkPlayerBlock.bind(this)}/>
                 <div onClick={this.createBlockTest.bind(this)} className="block-test-area">
                     {blockList}
                 </div>{/*testing for create/add blocks*/}
                 {harbor}
-                <Temple/>
+                <Temple shipDocked={this.shipDockedToDestination.bind(this)}/>
             </div>    
         )
     }
