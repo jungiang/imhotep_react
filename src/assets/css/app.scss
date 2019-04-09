@@ -23,8 +23,8 @@ body {
         padding: 5px;
         display: flex;
         flex-direction: column; 
-        box-shadow: 2px 2px 2px grey; 
-        background-color: #F1F1F1;
+        box-shadow: 1px 1px 1px rgb(195, 195, 195); 
+        background-color: rgb(247, 247, 247);
 
         .player-title {
             display: flex;
@@ -135,4 +135,5 @@ body {
         margin-left: 5px;
     }
 }
+
 }
