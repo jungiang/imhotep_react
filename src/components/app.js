@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import '../assets/css/app.scss';
+import Players from './players';
+
 import Ship from './ship';
 
 import CreateBlock from './createBlock';
@@ -51,6 +53,7 @@ class App extends Component {
             <div className="header">
                 <h1 className="title">Imhotep</h1>
                 <h3 className="slogan">The Egyptian Game From Hell</h3>
+                <Players />
                 <div onClick={this.createBlockTest.bind(this)} className="block-test-area">
                     {blockList}
                 </div>{/*testing for create/add blocks*/}
@@ -60,5 +63,6 @@ class App extends Component {
         )
     }
 }
+
 
 export default App;
