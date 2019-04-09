@@ -12,10 +12,9 @@ class Temple extends Component {
         };
         
     addStonesToArray=()=>{
-        // debugger;
         const {stones} = this.state;
         let {stoneReplacementPos} = this.state;
-        const shipBlocks = ['red', 'black', 'green'] //dummydata
+        const shipBlocks = ['red', 'black', 'red'] //dummydata
         for( let index = 0; index < shipBlocks.length; index++){
             if(this.state.stones.length < 5){
                 const currentStonesArray = stones;
@@ -36,17 +35,21 @@ class Temple extends Component {
                 stoneReplacementPos: ++stoneReplacementPos
             })
         }
-        // this.colorBlocks(shipBlocks[index])
         this.addPlayerCounter(shipBlocks[index]);
-
+        // this.colorBlocks(shipBlocks[index])
         }
     }
 
 
-    addPlayerCounter(color){
+    addPlayerCounter=(color)=>{
+
         const {playersStoneCount} = this.state;
         if(!(playersStoneCount[color])){
             playersStoneCount[color] = 1
+            this.setState({
+                playersStoneCount
+            })
+            console.log('new player', this.state.players);
         } else{
             playersStoneCount[color] += 1;
         }
@@ -70,9 +73,7 @@ class Temple extends Component {
         });
     }
 
-    createTempleBlock(){
-
-    }
+    shipDocked
 
     render(){
         console.log('stones', this.state.stones);

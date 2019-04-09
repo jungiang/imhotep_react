@@ -13,11 +13,23 @@ class Ship extends Component{
             image: image1
         }
     }
+    componentDidMount(){
+        //set the randomized ship state?
+    }
+    addBlockToShip(){
+        const {blocks} = this.state;
+        const newBlock = this.props.moveBlockTest();
+        this.setState({
+            blocks: [...blocks, newBlock]
+        })
+    }
     render(){
         const {image} = this.dummyData;//this will be this.props when dynamic
+        const {blocks} = this.state;
         return(
             <div className="ship_dock">
-                <img src={image} alt="ship" height="100px" width="200px"/>
+                <img onClick={this.addBlockToShip.bind(this)} src={image} alt="ship" height="120px" width="200px"/>{/*change to bg-image or change css for blocks to show on top */}
+                {blocks}
             </div>
         )
     }
