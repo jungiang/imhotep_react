@@ -8,7 +8,8 @@ class Temple extends Component {
             'stoneReplacementPos': 0,
             'docked': false,
             'players':{},
-            'color': []
+            'color': [],
+            'templePoints': {}
         };
 
     MapThroughStones(){
@@ -63,8 +64,23 @@ class Temple extends Component {
         }
     }
 
+    calculateTemplePoints=()=>{
+        const {stones} = this.state;
+        let {templePoints} = this.state;
+        for(let stoneIndex = 0; stoneIndex < stones.length; stoneIndex++){
+            if(!(templePoints[stones[stoneIndex]])){
+                templePoints[stones[stoneIndex]] = 1
+            } else{
+                templePoints[stones[stoneIndex]]++
+            }
+        }
+        console.log('points!', this.state.templePoints);
+        this.setState({
+            templePoints
+        });
+    }
+
     render(){
-        console.log('stones!', this.state.stones)
         return(            
         <div className="templeContainer">
             <div className="harborContainer">
@@ -73,6 +89,7 @@ class Temple extends Component {
                 }}>Harbor</button>
             </div>
             <div className="temple2Container">
+            <button onClick={this.calculateTemplePoints}>Points</button>
                 <div className="TempleBlockContainer">
                     {this.MapThroughStones()}
                 </div>

@@ -149,11 +149,15 @@ body {
     display: inline-block;
 
     .b1{
-        background-color: rgb(113, 255, 201)
+        background-color: rgb(113, 255, 201);
+        height: 100%;
+        width: 100%;
     }
 
     .b2{
-        background-color: blue
+        background-color: blue;
+        height: 100%;
+        width: 100%;
     }
     
 }
