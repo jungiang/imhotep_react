@@ -96,42 +96,65 @@ body {
         transform: rotate(360deg);
     }
 }
-
-
-.block-test-area {
-    height: 100px;
-    width: 100vw;
+}
+//Temple
+.destinationContainer{
+    height:90vh;
+    width:40vw;
+    background-color:rgb(255, 95, 95);
+    position: absolute;
+    top: 5vh;
+    right: 0;
+    
+}
+.templeContainer{
+    width: 100%;
+    height: 20%;
+    background-color: chartreuse;
+    display:flex;
 }
 
-.block {
-    height: 100px;
-    width: 100px;
+.harborContainer{
+    width:10%;
+    background-color:blue;
+}
+
+.temple2Container{
+    width:90%;
+    background-color: violet;
+}
+
+.TempleBlockContainer{
+    height:30%;
+    width:60%;
+    position: relative;
+    top:30%;
+    left:20%;
+    background-color: red;
+}
+
+.templeBlock{
+    height: 100%;
+    width: 10%;
+    margin: 0 5%;
+    display: inline-block;
+    background-color: rgb(75, 203, 238);
+}
+
+//dummyblocks
+.dummyBlocks{
+    height: 100%;
+    width: 10%;
+    margin: 0 5%;
     display: inline-block;
 
-//Temple
-    .temple{
-        height:15vh;
-        width:40vw;
-        background-color: rgb(250, 96, 96);
-        position: absolute;
-        right: 0;
-        top: 20%;
-    };
-
-    .blockContainer{
-        height: 50%;
-        width: 80%;
-        background-color: rgb(95, 95, 255);
-        position: absolute;
-        top: 10%;
-        left: 20%;
-    };
-    .blockTest{
-        height:90%;
-        width: 18%;
-        position: relative;
-        display:inline-block;
-        background-color: chartreuse;
-        margin-left: 5px;
+    .b1{
+        background-color: rgb(113, 255, 201)
     }
+
+    .b2{
+        background-color: blue
+    }
+    
 }
+

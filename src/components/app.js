@@ -14,9 +14,17 @@ class App extends Component {
         harbor: [],
         blockList: []//block test
     }
+    dummydata=[
+        <div className="dummyBlocks b1"></div>,
+        <div className="dummyBlocks b2"></div>,
+        <div className="dummyBlocks b2"></div>,
+        <div className="dummyBlocks b1"></div>
+    ];
+    
     componentDidMount(){
         this.createHarborElement()
     }
+
     createHarborElement(){
         const {harbor} = this.state;
         const newHarbor = [];
@@ -58,8 +66,10 @@ class App extends Component {
                     {blockList}
                 </div>{/*testing for create/add blocks*/}
                 {harbor}
-                <Temple/>
-            </div>    
+                <div className="destinationContainer">
+                    <Temple dummydata = {this.dummydata} />
+                </div>
+            </div>
         )
     }
 }

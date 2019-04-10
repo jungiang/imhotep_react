@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import App from './app';
 
 
 class Temple extends Component {
@@ -9,38 +10,38 @@ class Temple extends Component {
             'players':{},
             'color': []
         };
+
+    MapThroughStones(){
+        const stonesList = this.state.stones.map((stones, index)=>{
+            return <div  className="dummyBlocks" key={index}>{stones}</div>
+        })
+        return stonesList;
+    }
         
     addStonesToArray=()=>{
+        // debugger;
+        const {dummydata} = this.props;
         const {stones} = this.state;
         let {stoneReplacementPos} = this.state;
-        const shipBlocks = ['red', 'blue', 'red'] //dummydata
-        // this.stoneColor = this.currentStone.css('background-color'); //currentlu jquery. how will we change set in react?
-        for( let index = 0; index < shipBlocks.length; index++){
+        for( let index = 0; index < dummydata.length; index++){
             if(this.state.stones.length < 5){
-                const currentStonesArray = stones;
-                currentStonesArray.push(shipBlocks[index]);
+                stones.push(dummydata[index]);
                 this.setState({
-                    stones: currentStonesArray
+                    stones
                 });
             } else {
-            const newStonesArray = stones;
-            if(stoneReplacementPos < 5){
-                newStonesArray[stoneReplacementPos] = shipBlocks[index];
+                stones[stoneReplacementPos] = dummydata[index];
+                stoneReplacementPos++
+                if(stoneReplacementPos === 5){
+                    stoneReplacementPos = 0
+                }
                 this.setState({
-                    stones: newStonesArray,
-                    stoneReplacementPos: ++stoneReplacementPos
-                })
-            } else{
-                newStonesArray[0] = shipBlocks[index];
-                this.setState({
-                    stones: newStonesArray,
-                    stoneReplacementPos: 0
-                })
-            }
+                    stones,
+                    stoneReplacementPos
+                });
         }
-        this.colorBlocks(shipBlocks[index])
-        this.addPlayerCounter(shipBlocks[index]);
-
+        // this.colorBlocks(shipBlocks[index])
+        this.addPlayerCounter(dummydata[index]);
         }
     }
 
@@ -62,21 +63,19 @@ class Temple extends Component {
         }
     }
 
-    colorBlocks(color){
-        const stoneElement = <div className="blockTest" style='background-color:{$color}'></div>
-    }
-
     render(){
-        console.log(this.state.stones)
+        console.log('stones!', this.state.stones)
         return(            
-        <div className="temple">
-            <div className="blockContainer">
-                <div className="blockTest"></div>
-                <div className="blockTest"></div>
-                <div className="blockTest"></div>
-                <div className="blockTest"></div>
-                <div className="blockTest"></div>  
-                <button onClick={this.addStonesToArray} >add stone</button>
+        <div className="templeContainer">
+            <div className="harborContainer">
+                <button onClick={()=>{
+                    this.addStonesToArray(this.dummydata);
+                }}>Harbor</button>
+            </div>
+            <div className="temple2Container">
+                <div className="TempleBlockContainer">
+                    {this.MapThroughStones()}
+                </div>
             </div>
         </div>
         )
@@ -84,3 +83,4 @@ class Temple extends Component {
 }
 
 export default Temple;
+
