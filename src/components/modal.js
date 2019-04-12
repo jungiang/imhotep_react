@@ -1,30 +1,23 @@
 import React, { Component } from 'react';
+import '../assets/css/app.scss';
 
 class Modal extends Component {
-    state = {
-        show: false
-    }
-
-    render() {
-        const { handleClose, children } = this.props;
-        if (this.state.show){
-            this.setState({
-                show: true
-            });
-            var toggleClass = "modal display-block"
-        } else {
-            var toggleClass = "modal display-none"
+    render(){
+        const { children, open, close } = this.props;
+        if (open){
+            return (
+                <div className="ws-modal">
+                    <div className="ws-modal-content">
+                    <div className="ws-modal-actions right">
+                        <button className="btn btn-large purple close-modal" onClick={close}>Close</button>
+                    </div>
+                        {children}
+                    </div>
+                </div>
+            )
         }
-        debugger;
-        return (
-            <div className={toggleClass}>
-                <section className="modal-main">
-                    {children}
-                    <button onClick={handleClose}>close</button>
-                </section>
-            </div>
-        );
+        return null;
     }
-};
+}
 
 export default Modal;

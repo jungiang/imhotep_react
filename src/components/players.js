@@ -57,6 +57,7 @@ class Players extends Component {
 
     render() {
         const { name, stones, score, icon, cards } = this.state;
+        const { openModal } = this.props;
         const stoneCount = stones.length;
         console.log(stones);
 
@@ -68,11 +69,13 @@ class Players extends Component {
                 </div>
                 <div className="player-stats">
                     <p className="player-score">Score: {score}</p>
-                    <p className="player-stonecount">Stones: {stoneCount}</p>
                 </div>
                 <div className="player-btns">
-                    <a onClick={this.renderPhotos} className="card-btn waves-effect waves-light btn-small orange">Cards</a>
+                    <a onClick={openModal} className="card-btn waves-effect waves-light btn-small orange">Cards</a>
                     <a onClick={this.handleBlockRecharge} className="recharge-btn waves-effect waves-light btn-small red">Recharge</a>
+                </div>
+                <div className="stone-container">
+                    {stones}
                 </div>
             </div>
         )
