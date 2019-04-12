@@ -5,14 +5,6 @@ import 'materialize-css/dist/css/materialize.min.css';
 import 'materialize-css/dist/js/materialize.js';
 
 class Players extends Component {
-    state = {
-        name: 'Jason',
-        stones: [],
-        score: 10,
-        icon: pug,
-        cards: []
-    }
-
     handleBlockRecharge = () => {
         const { stones } = this.state;
 
@@ -39,29 +31,9 @@ class Players extends Component {
         }
     }
 
-    moveStoneToShip = () => {
-        const { stones } = this.state;
-
-        if (stones.length === 0){
-            return false
-        } else {
-            const newStoneArray = [...stones];
-            const StoneDiv = newStoneArray.pop();
-            this.setState({
-                stones: newStoneArray
-            });
-
-            return StoneDiv
-        }
-    }
-
     render() {
-        const { name, stones, score, icon, cards } = this.state;
-        const { openModal } = this.props;
-        const stoneCount = stones.length;
-        console.log(stones);
-
-        // const { name, color, stones, score, icon, cards } = this.props;
+        const { name, color, icon, blocks, openModal, score = 0 } = this.props;
+        console.log(blocks);
 
         return (
             <div className="player-container">
@@ -77,7 +49,7 @@ class Players extends Component {
                     <a onClick={this.handleBlockRecharge} className="recharge-btn waves-effect waves-light btn-small red">Recharge</a>
                 </div>
                 <div className="stone-container">
-                    {stones}
+                    {blocks}
                 </div>
             </div>
         )

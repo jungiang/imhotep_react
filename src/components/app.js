@@ -34,9 +34,8 @@ class App extends Component {
         ],
         currentPlayer: 0,
         initialBlockCount: 2,
-        blockId: 1
+        blockId: 1,
         modalOpen: false
-
     }
     componentDidMount(){
         this.createShipElement();
@@ -62,7 +61,7 @@ class App extends Component {
             icon: icon,
             blocks: [...playerBlocks]
         }
-        newPlayer.push(<Players key={name} {...playerData}/>);
+        newPlayer.push(<Players key={name} {...playerData} openModal={this.openModalTest}/>);
         this.setState({
             players: [...players, playerData],
             playersArray: [...playersArray, newPlayer],
@@ -111,7 +110,7 @@ class App extends Component {
         });
     }
 
-    moveBlock(){
+    async moveBlock(){
         if(this.checkPlayerBlock()){
             let {players, currentPlayer, shipsArray} = this.state;
             const newBlockArray = players[currentPlayer].blocks.slice(1);
@@ -139,12 +138,6 @@ class App extends Component {
             <div className="header">
                 <h1 className="title">Imhotep</h1>
                 <h3 className="slogan">The Egyptian Game From Hell</h3>
-                <Players openModal={this.openModalTest}/>
-                <div onClick={this.createBlockTest.bind(this)} className="block-test-area">
-                    {blockList}
-                </div>{/*testing for create/add blocks*/}
-                {harbor}
-                <Temple/>
                 <Modal open={modalOpen} close={this.closeModalTest}>
                     <h1 className="center">Player's Cards</h1>
                     <div className="row">
