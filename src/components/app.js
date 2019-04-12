@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import '../assets/css/app.scss';
 import Players from './players';
-import Ship from './ship';
+import Ship from './ships';
 import CreateBlock from './createBlock';
 import Temple from './temple';
 import Modal from './modal';

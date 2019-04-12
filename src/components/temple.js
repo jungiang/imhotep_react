@@ -52,13 +52,11 @@ class Temple extends Component {
             this.setState({
                 players
             })
-            console.log('new player', this.state.players);
         } else{
             players[color] += 1;
             this.setState({
                 players
             })
-            console.log('existing player', this.state.players)
         }
     }
 
@@ -67,7 +65,6 @@ class Temple extends Component {
     }
 
     render(){
-        console.log(this.state.stones)
         return(            
         <div className="temple">
             <div className="blockContainer">
