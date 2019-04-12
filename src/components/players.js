@@ -33,8 +33,6 @@ class Players extends Component {
 
     render() {
         const { name, color, icon, blocks, openModal, score = 0 } = this.props;
-        console.log(blocks);
-
         return (
             <div className="player-container">
                 <div className="player-title">

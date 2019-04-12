@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import '../assets/css/app.scss';
 import Players from './players';
-import Ship from './ship';
+import Ship from './ships';
 import CreateBlock from './createBlock';
 import Temple from './temple';
 import Modal from './modal';
@@ -84,7 +84,7 @@ class App extends Component {
         const {shipsArray} = this.state;
         const newShips = [];
         for(let i = 0; i < 4; i++){
-            newShips.push(<Ship key={i} blocks={shipsArray[i]} moveBlock={this.moveBlock.bind(this)}/>);
+            newShips.push(<Ship key={i} index={i} blocks={shipsArray[i]} moveBlock={this.moveBlock.bind(this)}/>);
         }
         this.setState({
             ships: [...newShips]
@@ -110,14 +110,14 @@ class App extends Component {
         });
     }
 
-    async moveBlock(){
+    async moveBlock(currentShip){
         if(this.checkPlayerBlock()){
             let {players, currentPlayer, shipsArray} = this.state;
             const newBlockArray = players[currentPlayer].blocks.slice(1);
             const movingBlock = [...players[currentPlayer].blocks].shift();
-            const newShipArray = [...shipsArray[currentPlayer], movingBlock];
+            const newShipArray = [...shipsArray[currentShip], movingBlock];
             const newShipsArray = [...shipsArray];
-            newShipsArray[currentPlayer] = newShipArray;
+            newShipsArray[currentShip] = newShipArray;
             const newPlayerObject = {...players[currentPlayer], ['blocks']: newBlockArray};
             const newPlayerArray = [...players];
             newPlayerArray[currentPlayer] = newPlayerObject;
@@ -132,8 +132,7 @@ class App extends Component {
         
     }
     render(){
-        const {ships, blockList, playersArray, modalOpen } = this.state;
-        console.log(this.state);
+        const {ships, playersArray, modalOpen} = this.state;
         return (
             <div className="header">
                 <h1 className="title">Imhotep</h1>
@@ -145,9 +144,6 @@ class App extends Component {
                     </div>
                 </Modal>
                 {playersArray}
-                <div onClick={this.createBlock} className="block-test-area">
-                    {blockList}
-                </div>{/*testing for create/add blocks*/}
                 {ships}
                 <Temple shipDocked={this.shipDockedToDestination.bind(this)}/>
             </div>    
