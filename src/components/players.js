@@ -39,7 +39,8 @@ class Players extends Component {
         }
     }
 
-    moveStoneToShip() {
+    moveStoneToShip = () => {
+        debugger;
         const { stones } = this.state;
 
         if (stones.length === 0){
@@ -60,6 +61,8 @@ class Players extends Component {
         const { openModal } = this.props;
         const stoneCount = stones.length;
         console.log(stones);
+
+        // const { name, color, stones, score, icon, cards } = this.props;
 
         return (
             <div className="player-container">

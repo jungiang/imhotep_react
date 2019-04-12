@@ -17,11 +17,14 @@ class Ship extends Component{
         //set the randomized ship state?
     }
     addBlockToShip(){
-        const {blocks} = this.state;
+        debugger;
         const newBlock = this.props.moveBlockTest();
-        this.setState({
-            blocks: [...blocks, newBlock]
-        })
+        const {blocks} = this.state;
+        if(block){
+            this.setState({
+                blocks: [...blocks, newBlock]
+            })    
+        }
     }
     render(){
         const {image} = this.dummyData;//this will be this.props when dynamic
