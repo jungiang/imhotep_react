@@ -16,33 +16,42 @@ class App extends Component {
             // }
         ],
         playersArray: [],
-        shipsCargo: [
-            //[{block},{block}],
-            //[{block},{block}],
-            //[{block},{block}],
-            //[{block},{block}],
+        ships: [],
+        shipsArray: [
+            [],
+            [],
+            [],
+            []
         ],
-        harbor: [],
-        currentPlayer: null,
-        initialBlockCount: 2
+        destinationArray: [],
+        destinationArrayBlocks: [
+            [],
+            [],
+            [],
+            [],
+            []
+        ],
+        currentPlayer: 0,
+        initialBlockCount: 2,
+        blockId: 1
     }
-    async componentDidMount(){
-        this.createHarborElement();
-        await this.createPlayerElement('David', 'white');
-        this.gameStart();
+    componentDidMount(){
+        this.createShipElement();
+        this.createPlayerElement('David', 'black');
+        // this.gameStart();
     }
-    gameStart(){
-        const {players} = this.state;
-        this.setState({
-            currentPlayer: players[0]
-        })
-    }
+    // gameStart(){
+    //     const {players} = this.state;
+    //     this.setState({
+    //         currentPlayer: players[0]
+    //     })
+    // }
     changePlayerTurn(){
 
     }
     createPlayerElement(name, color, icon){
-        const {players, playersArray} = this.state;
-        const playerBlocks = this.determineInitialBlocks(color);
+        const {players, playersArray, initialBlockCount} = this.state;
+        const playerBlocks = this.createBlocks(initialBlockCount, color);
         const newPlayer = [];
         const playerData = {
             name: name,
@@ -53,68 +62,73 @@ class App extends Component {
         newPlayer.push(<Players key={name} {...playerData}/>);
         this.setState({
             players: [...players, playerData],
-            playersArray: [...playersArray, newPlayer]
-        })
-    }
-    determineInitialBlocks(color){
-        const {initialBlockCount} = this.state;
-        const blockArray = [];
-        for(let i = 0; i < initialBlockCount; i++){
-            blockArray.push(this.createBlock(color));
-        }
-        this.setState({
+            playersArray: [...playersArray, newPlayer],
             initialBlockCount: initialBlockCount + 1
         })
+    }
+    createBlocks = (amount, color) => {
+        let {blockId} = this.state;
+        const blockArray = [];
+        for(let i = 0; i < amount; i++){
+            blockArray.push(<CreateBlock key={blockId} color={color}/>);
+            blockId++;
+            this.setState({
+                blockId
+            })
+        }
         return blockArray;
     }
-    createHarborElement(){
-        const {harbor} = this.state;
-        const newHarbor = [];
+    createShipElement(){
+        const {shipsArray} = this.state;
+        const newShips = [];
         for(let i = 0; i < 4; i++){
-            newHarbor.push(<Ship key={i} moveBlockTest={this.moveBlock.bind(this)}/>);
+            newShips.push(<Ship key={i} blocks={shipsArray[i]} moveBlock={this.moveBlock.bind(this)}/>);
         }
         this.setState({
-            harbor: [...harbor, ...newHarbor]
+            ships: [...newShips]
         })
     }
     checkPlayerBlock(){
-        const {currentPlayer} = this.state;
-        if(currentPlayer.blocks.length > 0){
+        const {players, currentPlayer} = this.state;
+        if(players[currentPlayer].blocks.length > 0){
             return true;
         }else{
             return false;
         }
     }
-    moveBlock(){
+    async moveBlock(){
         if(this.checkPlayerBlock()){
-            const {currentPlayer} = this.state;
-            const block = currentPlayer.blocks[0];
-            const newBlockArray = currentPlayer.blocks.slice(1);
-            // this.setState({
-                
-            // })   
+            let {players, currentPlayer, shipsArray} = this.state;
+            const newBlockArray = players[currentPlayer].blocks.slice(1);
+            const movingBlock = [...players[currentPlayer].blocks].shift();
+            const newShipArray = [...shipsArray[currentPlayer], movingBlock];
+            const newShipsArray = [...shipsArray];
+            newShipsArray[currentPlayer] = newShipArray;
+            const newPlayerObject = {...players[currentPlayer], ['blocks']: newBlockArray};
+            const newPlayerArray = [...players];
+            newPlayerArray[currentPlayer] = newPlayerObject;
+            await this.setState({
+                players: newPlayerArray,
+                shipsArray: newShipsArray
+            })
+            this.createShipElement();   
         }
-    }
-    createBlock(color){
-        const newBlockList = [];
-        newBlockList.push(<CreateBlock color={color}/>);
-        return newBlockList;
     }
     shipDockedToDestination(){
         
     }
     render(){
-        const {harbor, blockList, playersArray} = this.state;
+        const {ships, blockList, playersArray} = this.state;
         console.log(this.state);
         return (
             <div className="header">
                 <h1 className="title">Imhotep</h1>
                 <h3 className="slogan">The Egyptian Game From Hell</h3>
                 {playersArray}
-                <div onClick={this.createBlock.bind(this)} className="block-test-area">
+                <div onClick={this.createBlock} className="block-test-area">
                     {blockList}
                 </div>{/*testing for create/add blocks*/}
-                {harbor}
+                {ships}
                 <Temple shipDocked={this.shipDockedToDestination.bind(this)}/>
             </div>    
         )
