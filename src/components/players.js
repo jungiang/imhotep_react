@@ -40,7 +40,6 @@ class Players extends Component {
     }
 
     moveStoneToShip = () => {
-        debugger;
         const { stones } = this.state;
 
         if (stones.length === 0){
