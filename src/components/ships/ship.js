@@ -28,16 +28,16 @@ class Ship extends Component{
             this.setState({
                 currentBlocks: currentBlocks + 1
             })
-            this.props.moveBlock();
+            this.props.moveBlock(this.props.index);
         }else{
             alert('ship is full');
         }
     }
     render(){
         const {style} = this.state;
-        const {blocks} = this.props;
+        const {blocks, index} = this.props;
         return(
-            <div className="ship_dock" style={style} onClick={this.addBlockToShip.bind(this)}>
+            <div className="ship_dock" data-index={index} style={style} onClick={this.addBlockToShip.bind(this)}>
                 {blocks}
             </div>
         )
