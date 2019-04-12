@@ -17,6 +17,7 @@ class Ship extends Component{
         //set the randomized ship state?
     }
     addBlockToShip(){
+        debugger;
         const newBlock = this.props.moveBlockTest();
         const {blocks} = this.state;
         if(block){
@@ -29,7 +30,6 @@ class Ship extends Component{
         const {image} = this.dummyData;//this will be this.props when dynamic
         const {blocks} = this.state;
         return(
-            // <div onClick={element => {this.addBlockToShip(element)}} className="ship_dock">
             <div className="ship_dock">
                 <img onClick={this.addBlockToShip.bind(this)} src={image} alt="ship" height="120px" width="200px"/>{/*change to bg-image or change css for blocks to show on top */}
                 {blocks}

@@ -39,7 +39,8 @@ class Players extends Component {
         }
     }
 
-    moveStoneToShip() {
+    moveStoneToShip = () => {
+        debugger;
         const { stones } = this.state;
 
         if (stones.length === 0){
@@ -56,9 +57,8 @@ class Players extends Component {
     }
 
     render() {
-        const { name, stones, score, icon, cards } = this.state;
-        const stoneCount = stones.length;
-        console.log(stones);
+        const { name, color, stones, score, icon, cards } = this.props;
+        // const stoneCount = stones.length;
 
         return (
             <div className="player-container">
@@ -68,7 +68,7 @@ class Players extends Component {
                 </div>
                 <div className="player-stats">
                     <p className="player-score">Score: {score}</p>
-                    <p className="player-stonecount">Stones: {stoneCount}</p>
+                    {/* <p className="player-stonecount">Stones: {stoneCount}</p> */}
                 </div>
                 <div className="player-btns">
                     <a onClick={this.renderPhotos} className="card-btn waves-effect waves-light btn-small orange">Cards</a>
