@@ -34,7 +34,7 @@ class App extends Component {
         ],
         currentPlayer: 0,
         initialBlockCount: 2,
-        blockId: 1
+        blockId: 1,
         modalOpen: false
 
     }
@@ -122,7 +122,7 @@ class App extends Component {
             const newPlayerObject = {...players[currentPlayer], ['blocks']: newBlockArray};
             const newPlayerArray = [...players];
             newPlayerArray[currentPlayer] = newPlayerObject;
-            await this.setState({
+            this.setState({
                 players: newPlayerArray,
                 shipsArray: newShipsArray
             })
@@ -140,10 +140,10 @@ class App extends Component {
                 <h1 className="title">Imhotep</h1>
                 <h3 className="slogan">The Egyptian Game From Hell</h3>
                 <Players openModal={this.openModalTest}/>
-                <div onClick={this.createBlockTest.bind(this)} className="block-test-area">
+                <div onClick={this.createBlocks} className="block-test-area">
                     {blockList}
                 </div>{/*testing for create/add blocks*/}
-                {harbor}
+                {ships}
                 <Temple/>
                 <Modal open={modalOpen} close={this.closeModalTest}>
                     <h1 className="center">Player's Cards</h1>
