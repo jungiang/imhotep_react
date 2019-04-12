@@ -18,20 +18,19 @@ body {
     }
 
     .player-container {
-        height: 100px;
+        height: 150px;
         width: 300px;
         padding: 5px;
         display: flex;
         flex-direction: column; 
-        box-shadow: 1px 1px 1px rgb(195, 195, 195); 
-        background-color: rgb(247, 247, 247);
+        border: 0.2px solid black;
 
         .player-title {
             display: flex;
             justify-content: center;
             height: 33%;
             width: 100%;
-            margin-bottom: -11px;
+            margin-bottom: -25px;
 
             .player-name {
                 font-size: 18px;
@@ -40,7 +39,7 @@ body {
             }
 
             .player-icon {
-                height: 116%;
+                height: 80%;
                 width: 12%;
                 border-radius: 50px;
                 margin: 4px 10px 0px -25px;
@@ -50,26 +49,23 @@ body {
         .player-stats {
             display: flex;
             justify-content: space-around;
-            height: 39%;
+            height: 33%;
             width: 100%;
             font-size: 12px;
             padding-top: 14px;
 
             .player-score {
                 display: inline-block;
-            }
-        
-            .player-stonecount {
-                display: inline-block;
+                text-align: center;
             }
         }
 
         .player-btns {
             display: flex;
             justify-content: space-evenly;
-            height: 33%;
+            height: 23%;
             width: 100%;
-            margin-top: 8px;
+            margin: 0 0 2px 0;
 
             .recharge-btn {
                 height: 58%;
@@ -86,54 +82,84 @@ body {
                 top: 7px;
             }
         }
+
+        .stone-container {
+            background-color: purple;
+            display: flex;
+            justify-content: space-around;
+            height: 27%;
+            width: 100%;
+        }
     }   
 
-@keyframes spin {
-    from {
-        transform: rotate(0deg);
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
     }
-    to {
-        transform: rotate(360deg);
+
+
+    .block-test-area {
+        height: 100px;
+        width: 100vw;
+    }
+
+    .block {
+        height: 100px;
+        width: 100px;
+        display: inline-block;
+
+        .temple{
+            height:15vh;
+            width:40vw;
+            background-color: rgb(250, 96, 96);
+            position: absolute;
+            right: 0;
+            top: 20%;
+        };
+
+        .blockContainer{
+            height: 50%;
+            width: 80%;
+            background-color: rgb(95, 95, 255);
+            position: absolute;
+            top: 10%;
+            left: 20%;
+        };
+        .blockTest{
+            height:90%;
+            width: 18%;
+            position: relative;
+            display:inline-block;
+            background-color: chartreuse;
+            margin-left: 5px;
+        }
+    }
+
+    .ws-modal {
+        display: flex;
+        background-color: rgba(0, 0, 0, .75);
+        position: fixed;
+        height: 100vh;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+    
+        .ws-modal-content {
+            background-color: #fff;
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+        }
+    }
+
+    .modal-content {
+        text-align: center;
     }
 }
 
 
-.block-test-area {
-    height: 100px;
-    width: 100vw;
-}
-
-.block {
-    height: 100px;
-    width: 100px;
-    display: inline-block;
-
-    .temple{
-        height:15vh;
-        width:40vw;
-        background-color: rgb(250, 96, 96);
-        position: absolute;
-        right: 0;
-        top: 20%;
-    };
-
-    .blockContainer{
-        height: 50%;
-        width: 80%;
-        background-color: rgb(95, 95, 255);
-        position: absolute;
-        top: 10%;
-        left: 20%;
-    };
-
-    .blockTest{
-        height:90%;
-        width: 18%;
-        position: relative;
-        display:inline-block;
-        background-color: chartreuse;
-        margin-left: 5px;
-    }
-}
-
-}

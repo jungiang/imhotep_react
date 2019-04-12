@@ -4,6 +4,7 @@ import Players from './players';
 import Ship from './ship';
 import CreateBlock from './createBlock';
 import Temple from './temple';
+import Modal from './modal';
 
 class App extends Component {
     state = {
@@ -34,6 +35,8 @@ class App extends Component {
         currentPlayer: 0,
         initialBlockCount: 2,
         blockId: 1
+        modalOpen: false
+
     }
     componentDidMount(){
         this.createShipElement();
@@ -96,7 +99,19 @@ class App extends Component {
             return false;
         }
     }
-    async moveBlock(){
+    openModalTest = () => {
+        this.setState({
+            modalOpen: true
+        });
+    }
+
+    closeModalTest = () => {
+        this.setState({
+            modalOpen: false
+        });
+    }
+
+    moveBlock(){
         if(this.checkPlayerBlock()){
             let {players, currentPlayer, shipsArray} = this.state;
             const newBlockArray = players[currentPlayer].blocks.slice(1);
@@ -118,12 +133,24 @@ class App extends Component {
         
     }
     render(){
-        const {ships, blockList, playersArray} = this.state;
+        const {ships, blockList, playersArray, modalOpen } = this.state;
         console.log(this.state);
         return (
             <div className="header">
                 <h1 className="title">Imhotep</h1>
                 <h3 className="slogan">The Egyptian Game From Hell</h3>
+                <Players openModal={this.openModalTest}/>
+                <div onClick={this.createBlockTest.bind(this)} className="block-test-area">
+                    {blockList}
+                </div>{/*testing for create/add blocks*/}
+                {harbor}
+                <Temple/>
+                <Modal open={modalOpen} close={this.closeModalTest}>
+                    <h1 className="center">Player's Cards</h1>
+                    <div className="row">
+                        <div className="modal-content col s12">User's cards go here</div>
+                    </div>
+                </Modal>
                 {playersArray}
                 <div onClick={this.createBlock} className="block-test-area">
                     {blockList}
