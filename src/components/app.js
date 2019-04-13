@@ -132,6 +132,7 @@ class App extends Component {
         
     }
     render(){
+        console.log(this.state.ships);
         const {ships, playersArray, modalOpen} = this.state;
         return (
             <div className="header">
@@ -145,9 +146,24 @@ class App extends Component {
                 </Modal>
                 {playersArray}
                 {ships}
-                <Temple shipDocked={this.shipDockedToDestination.bind(this)}/>
+                <Temple/>
             </div>    
         )
+    }
+
+
+
+
+
+
+    //move ship counter to Temple
+        checkShipBlock(){
+        const {players, currentPlayer} = this.state;
+        if(players[currentPlayer].blocks.length > 0){
+            return true;
+        }else{
+            return false;
+        }
     }
 }
 
