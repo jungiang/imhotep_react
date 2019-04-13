@@ -7,7 +7,7 @@ class Ship extends Component{
         this.state = {
             style: null,
             maxBlocks: null,
-            minBlocksToSail: null,
+            minBlocksToSail: 'minimum blocks needed to sail(target here)',
             currentBlocks: 0
         }
     }
