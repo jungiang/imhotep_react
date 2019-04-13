@@ -61,13 +61,55 @@ class App extends Component {
             icon: icon,
             blocks: [...playerBlocks]
         }
-        newPlayer.push(<Players key={name} {...playerData} openModal={this.openModalTest}/>);
+        newPlayer.push(<Players key={name} rechargeBlocks={this.handleBlockRecharge} {...playerData} openModal={this.openModalTest}/>);
         this.setState({
             players: [...players, playerData],
             playersArray: [...playersArray, newPlayer],
             initialBlockCount: initialBlockCount + 1
-        })
+        });
     }
+
+    handleBlockRecharge = async () => {
+        const { players, currentPlayer } = this.state;
+        const playerBlocks = players[currentPlayer]['blocks'];
+        debugger;
+        if (playerBlocks.length < 3) {
+            const addBlocks = this.createBlocks(3, players[currentPlayer]['color']);
+            for (var i = 0; i < addBlocks.length; i++){
+                var moreBlocks = [...players[currentPlayer]['blocks'], addBlocks[i]];
+                var newPlayerObj = {...players[currentPlayer], ['blocks']: moreBlocks}
+                var newPlayerArray = [...players];
+                newPlayerArray[currentPlayer] = newPlayerObj; 
+                await this.setState({
+                    players: newPlayerArray
+                });
+            }
+            
+            // const newBlockArray = [...players[currentPlayer]['blocks'], <CreateBlock color={players[currentPlayer]['color']}/>];
+            // const newPlayerObject = {...players[currentPlayer], ['blocks']: newBlockArray};
+            
+            // this.setState({
+            //     players: 
+            // });
+            return
+        }
+        if (playerBlocks.length === 3) {
+            this.setState({
+                stones: [...stones, <Block/>, <Block/>]
+            });
+            return
+        }
+        if (playerBlocks.length === 4) {
+            this.setState({
+                stones: [...stones, <Block/>]
+            });
+            return
+        }
+        if (playerBlocks.length === 5) {
+            return
+        }
+    }
+
     createBlocks = (amount, color) => {
         let {blockId} = this.state;
         const blockArray = [];
@@ -98,13 +140,13 @@ class App extends Component {
             return false;
         }
     }
-    openModalTest = () => {
+    openModal = () => {
         this.setState({
             modalOpen: true
         });
     }
 
-    closeModalTest = () => {
+    closeModal = () => {
         this.setState({
             modalOpen: false
         });
@@ -132,12 +174,13 @@ class App extends Component {
         
     }
     render(){
+        console.log(this.state);
         const {ships, playersArray, modalOpen} = this.state;
         return (
             <div className="header">
                 <h1 className="title">Imhotep</h1>
                 <h3 className="slogan">The Egyptian Game From Hell</h3>
-                <Modal open={modalOpen} close={this.closeModalTest}>
+                <Modal open={modalOpen} close={this.closeModal}>
                     <h1 className="center">Player's Cards</h1>
                     <div className="row">
                         <div className="modal-content col s12">User's cards go here</div>
