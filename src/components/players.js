@@ -47,7 +47,7 @@ class Players extends Component {
                     <a onClick={this.handleBlockRecharge} className="recharge-btn waves-effect waves-light btn-small red">Recharge</a>
                 </div>
                 <div className="stone-container">
-                    {blocks}
+                    {/* {blocks} */}
                 </div>
             </div>
         )
