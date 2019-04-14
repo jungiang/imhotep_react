@@ -42,9 +42,7 @@ class App extends Component {
         templeStoneArray: [],
         templeDock:false,
         templeStonePlacement: 0,
-        templeCount: {
-            black: 0
-        },
+        templeCount: {},
         templePoints: {}
     }
     componentDidMount(){
@@ -176,10 +174,8 @@ class App extends Component {
                         templeStonePlacement = 0;
                     }
                 }
-                this.countTempleBlocks(movingShipBlockArray[index]);
-                console.log('moving ships', movingShipBlockArray[index]);
             }            
-            console.log('value of newshiparray', newDestinationArray);
+            console.log('value of newshiparray', movingShipBlockArray[shipIndex]);
             await this.setState({
                 ships: newShipsArray,
                 shipsArray: newShipBlocksArray,
@@ -188,31 +184,47 @@ class App extends Component {
                 templeStoneArray: newTempleStoneArray,
                 templeStonePlacement
             });
+            this.countTempleBlocks(movingShipBlockArray);
         }
     }
 
     countTempleBlocks(templeBlocks){
         debugger;
-        let {templeCount} = this.state;
-        let newtempleCount = templeCount;
-        const color = templeBlocks.props['color']
-            if(!(templeCount[color])){
-                this.setState({
-                    templeCount: {...templeCount, [color] : 1}
-            })
-        } 
+        const {templeCount} = this.state;
+        let newTempleCount = {}
+        for(let index = 0; index < templeBlocks.length; index++){
+        const color = templeBlocks[index].props['color']
+            if(!newTempleCount[color]){
+                newTempleCount = {...templeCount, [color] : 1}
+        } else {
+            const value = newTempleCount[color];
+            newTempleCount = {...templeCount, [color]: value + 1}
+        }
+    }
+        this.setState({
+            templeCount: newTempleCount
+        })
+    } 
+
+    calculateTemplePoints(){
+        const {templeStoneArray, templePoints} = this.state;
+        let newTemplePoints = {};
+        for(let index = 0; index < templeStoneArray.length; index++){
+            const color = templeStoneArray[index].props['color'];
+            if(!newTemplePoints[color]){
+                newTemplePoints = {...templePoints, [color] : 1}
+            } else {
+                const value = newTemplePoints[color];
+                newTemplePoints = {...templePoints, [color]: value + 1}
+            }
+        }
+        this.setState({
+            templePoints: newTemplePoints
+        })
     }
 
-    // calculateTemplePoints(){
-    //     let {templeStoneArray, templePoints} = this.state;
-    //     for(let index = 0; index < templeStoneArray.length; index++){
-            
-    //     }
-    // }
-
     render(){
-
-        console.log(this.state.templeCount);
+        console.log('thisisthetemplepoints', this.state.templePoints);
         const {ships, playersArray, modalOpen, templeStoneArray} = this.state;
         return (
             <div className="header">
@@ -228,32 +240,11 @@ class App extends Component {
                 {ships}
                 <div className="overallDestinationContainer">
                     <Temple moveShipBlock = {this.moveShipBlock.bind(this)} shipIndex = {0} templeArray={templeStoneArray}/>
+                    <button onClick={this.calculateTemplePoints.bind(this)}>end of round</button>
                 </div>
             </div>    
         )
     }
-
 }
 
-// async moveBlock(currentShip){
-//     if(checkShipBlock()){
-//         let {players, currentPlayer, shipsArray} = this.state;
-//         const newBlockArray = players[currentPlayer].blocks.slice(1);
-//         const movingBlock = [...players[currentPlayer].blocks].shift();
-//         const newShipArray = [...shipsArray[currentShip], movingBlock];
-//         const newShipsArray = [...shipsArray];
-//         newShipsArray[currentShip] = newShipArray;
-//         const newPlayerObject = {...players[currentPlayer], ['blocks']: newBlockArray};
-//         const newPlayerArray = [...players];
-//         newPlayerArray[currentPlayer] = newPlayerObject;
-//         await this.setState({
-//             players: newPlayerArray,
-//             shipsArray: newShipsArray
-//         })
-//         this.createShipElement();   
-//     }
-// }
-
-
 export default App;
- 
