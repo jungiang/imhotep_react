@@ -108,8 +108,8 @@ body {
     }
 
     .block {
-        height: 100px;
-        width: 100px;
+        height: 50px;
+        width: 50px;
         display: inline-block;
 
         .temple{
@@ -159,6 +159,25 @@ body {
 
     .modal-content {
         text-align: center;
+    }
+
+    .destination {
+        width: 600px;
+        height: 200px;
+        border: 1px black solid;
+        background-color: burlywood;
+
+        .burial-chamber {
+            .burial-chamber-container {
+                height: 50px;
+                width: 500px;
+                
+                .block {
+                    height: 50px;
+                    width: 50px;
+                }
+            }
+        }
     }
 }
 

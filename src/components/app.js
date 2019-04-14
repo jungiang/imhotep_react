@@ -4,6 +4,8 @@ import Players from './players';
 import Ship from './ships';
 import CreateBlock from './createBlock';
 import Temple from './temple';
+import BurialChamber from './destinations/burial_chamber';
+import Obelisks from './destinations/obelisks'
 import Modal from './modal';
 
 class App extends Component {
@@ -24,13 +26,14 @@ class App extends Component {
             [],
             []
         ],
-        destinationArray: [],
-        destinationArrayBlocks: [
-            [],
-            [],
-            [],
-            [],
-            []
+        shipToSail: false,
+        destination: [],
+        destinationArray: [
+            [],//bc
+            [],//obelisks
+            [],//temple
+            [],//pyramid
+            []//market
         ],
         currentPlayer: 0,
         initialBlockCount: 2,
@@ -43,7 +46,7 @@ class App extends Component {
         await this.createPlayerElement('Jason', 'gray');
         await this.createPlayerElement('David', 'black');
         this.createPlayerElement('Jaime', 'brown');
-        // this.gameStart();
+        this.createDestinationElement();
     }
     // gameStart(){
     //     const {players} = this.state;
@@ -87,10 +90,33 @@ class App extends Component {
         const {shipsArray} = this.state;
         const newShips = [];
         for(let i = 0; i < 4; i++){
-            newShips.push(<Ship key={i} index={i} blocks={shipsArray[i]} moveBlock={this.moveBlock.bind(this)}/>);
+            newShips.push(<Ship 
+                key={i} 
+                index={i} 
+                blocks={shipsArray[i]} 
+                moveBlock={this.moveBlockToShip}
+                sailShip={this.shipToSail}
+                />);
         }
         this.setState({
             ships: [...newShips]
+        })
+    }
+    createDestinationElement(){
+        let {destination} = this.state;
+        destination.push(<BurialChamber 
+            key="burial_chamber"
+            index={0} 
+            dockShip={this.shipDockedToDestination}
+            />);
+        destination.push(<Obelisks 
+            key="obelisks" 
+            index={1}
+            dockShip={this.shipDockedToDestination}
+            />);
+        destination.push(<Temple shipDocked={this.shipDockedToDestination}/>);
+        this.setState({
+            destination
         })
     }
     checkPlayerBlock(){
@@ -119,8 +145,7 @@ class App extends Component {
             modalOpen: false
         });
     }
-
-    async moveBlock(currentShip){
+    moveBlockToShip = async currentShip => {
         const hasBlock = this.checkPlayerBlock();
         if(hasBlock){
             let {players, currentPlayer, shipsArray} = this.state;
@@ -142,11 +167,25 @@ class App extends Component {
             return hasBlock;
         }
     }
-    shipDockedToDestination(){
-        
+    shipToSail = currentShip => {
+        this.setState({
+            shipToSail: currentShip
+        })
+    }
+    shipDockedToDestination = currentDestination => {
+        let {shipsArray, shipToSail, destinationArray} = this.state;
+        if(shipToSail !== false){
+            destinationArray[currentDestination] = [...destinationArray[currentDestination], ...shipsArray[shipToSail]];
+            this.setState({
+                destinationArray
+            })
+            return shipsArray[shipToSail];    
+        }else{
+            return false;
+        }
     }
     render(){
-        const {ships, playersArray, modalOpen} = this.state;
+        const {ships, playersArray, modalOpen, destination} = this.state;
         return (
             <div className="header">
                 <h1 className="title">Imhotep</h1>
@@ -157,13 +196,18 @@ class App extends Component {
                         <div className="modal-content col s12">User's cards go here</div>
                     </div>
                 </Modal>
-                {playersArray}
-                {ships}
-                <Temple shipDocked={this.shipDockedToDestination.bind(this)}/>
+                <div className="players-container">
+                    {playersArray}
+                </div>
+                <div className="ships-container">
+                    {ships}
+                </div>
+                <div className="destination-container">
+                    {destination}
+                </div>
             </div>    
         )
     }
 }
-
 
 export default App;
