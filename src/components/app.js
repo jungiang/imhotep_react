@@ -37,9 +37,12 @@ class App extends Component {
         blockId: 1,
         modalOpen: false
     }
-    componentDidMount(){
+    async componentDidMount(){
         this.createShipElement();
-        this.createPlayerElement('David', 'black');
+        await this.createPlayerElement('Jun', 'white');
+        await this.createPlayerElement('Jason', 'gray');
+        await this.createPlayerElement('David', 'black');
+        this.createPlayerElement('Jaime', 'brown');
         // this.gameStart();
     }
     // gameStart(){
@@ -91,8 +94,15 @@ class App extends Component {
         })
     }
     checkPlayerBlock(){
-        const {players, currentPlayer} = this.state;
+        let {players, currentPlayer} = this.state;
         if(players[currentPlayer].blocks.length > 0){
+            currentPlayer++;
+            if(currentPlayer === players.length){
+                currentPlayer = 0;
+            }
+            this.setState({
+                currentPlayer: currentPlayer
+            })
             return true;
         }else{
             return false;
@@ -111,7 +121,8 @@ class App extends Component {
     }
 
     async moveBlock(currentShip){
-        if(this.checkPlayerBlock()){
+        const hasBlock = this.checkPlayerBlock();
+        if(hasBlock){
             let {players, currentPlayer, shipsArray} = this.state;
             const newBlockArray = players[currentPlayer].blocks.slice(1);
             const movingBlock = [...players[currentPlayer].blocks].shift();
@@ -125,7 +136,10 @@ class App extends Component {
                 players: newPlayerArray,
                 shipsArray: newShipsArray
             })
-            this.createShipElement();   
+            this.createShipElement(); 
+            return hasBlock;  
+        }else{
+            return hasBlock;
         }
     }
     shipDockedToDestination(){

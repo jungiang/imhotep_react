@@ -22,13 +22,17 @@ class Ship extends Component{
             minBlocksToSail: minBlocksToSail
         })
     }
-    addBlockToShip(){
+    async addBlockToShip(){
         let {currentBlocks, maxBlocks} = this.state;
         if(currentBlocks < maxBlocks){
-            this.setState({
-                currentBlocks: currentBlocks + 1
-            })
-            this.props.moveBlock(this.props.index);
+            const hasBlock = await this.props.moveBlock(this.props.index);
+            if(hasBlock){
+                this.setState({
+                    currentBlocks: currentBlocks + 1
+                })
+            }else{
+                alert('player is out of blocks')
+            }
         }else{
             alert('ship is full');
         }
