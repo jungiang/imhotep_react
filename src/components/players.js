@@ -16,7 +16,7 @@ class Players extends Component {
                     <p className="player-score">Score: {score}</p>
                 </div>
                 <div className="player-btns">
-                    <a onClick={openModal} className="card-btn waves-effect waves-light btn-small orange">Cards</a>
+                    <a onClick={openModal} className="card-btn waves-effect waves-light btn-small orange modal-trigger">Cards</a>
                     <a onClick={rechargeBlocks} className="recharge-btn waves-effect waves-light btn-small red">Recharge</a>
                 </div>
                 <div className="stone-container">

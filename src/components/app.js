@@ -5,6 +5,7 @@ import Ship from './ships';
 import CreateBlock from './createBlock';
 import Temple from './temple';
 import Modal from './modal';
+import david from '../assets/images/david.jpeg';
 
 class App extends Component {
     state = {
@@ -39,7 +40,7 @@ class App extends Component {
     }
     componentDidMount(){
         this.createShipElement();
-        this.createPlayerElement('David', 'black');
+        this.createPlayerElement('David', 'black', david);
         // this.gameStart();
     }
     // gameStart(){
@@ -61,7 +62,7 @@ class App extends Component {
             icon: icon,
             blocks: [...playerBlocks]
         }
-        newPlayer.push(<Players key={name} rechargeBlocks={this.handleBlockRecharge} {...playerData} openModal={this.openModalTest}/>);
+        newPlayer.push(<Players key={name} rechargeBlocks={this.handleBlockRecharge} {...playerData} openModal={this.openModal}/>);
         this.setState({
             players: [...players, playerData],
             playersArray: [...playersArray, newPlayer],
@@ -69,39 +70,30 @@ class App extends Component {
         });
     }
 
-    handleBlockRecharge = async () => {
+    handleBlockRecharge = () => {
         const { players, currentPlayer } = this.state;
         const playerBlocks = players[currentPlayer]['blocks'];
-        debugger;
-        if (playerBlocks.length < 3) {
-            const addBlocks = this.createBlocks(3, players[currentPlayer]['color']);
-            for (var i = 0; i < addBlocks.length; i++){
-                var moreBlocks = [...players[currentPlayer]['blocks'], addBlocks[i]];
-                var newPlayerObj = {...players[currentPlayer], ['blocks']: moreBlocks}
-                var newPlayerArray = [...players];
-                newPlayerArray[currentPlayer] = newPlayerObj; 
-                await this.setState({
-                    players: newPlayerArray
-                });
-            }
-            
-            // const newBlockArray = [...players[currentPlayer]['blocks'], <CreateBlock color={players[currentPlayer]['color']}/>];
-            // const newPlayerObject = {...players[currentPlayer], ['blocks']: newBlockArray};
-            
-            // this.setState({
-            //     players: 
-            // });
+        if (playerBlocks.length < 3){
+            players[currentPlayer].blocks.push(<CreateBlock color={players[currentPlayer]['color']}/>, 
+                                                <CreateBlock color={players[currentPlayer]['color']}/>, 
+                                                <CreateBlock color={players[currentPlayer]['color']}/>);
+            this.setState({
+                players: [...players]
+            });
             return
         }
         if (playerBlocks.length === 3) {
+            players[currentPlayer].blocks.push(<CreateBlock color={players[currentPlayer]['color']}/>, 
+                                                <CreateBlock color={players[currentPlayer]['color']}/>);
             this.setState({
-                stones: [...stones, <Block/>, <Block/>]
+                players: [...players]
             });
             return
         }
         if (playerBlocks.length === 4) {
+            players[currentPlayer].blocks.push(<CreateBlock color={players[currentPlayer]['color']}/>);
             this.setState({
-                stones: [...stones, <Block/>]
+                players: [...players]
             });
             return
         }
