@@ -35,7 +35,17 @@ class App extends Component {
         currentPlayer: 0,
         initialBlockCount: 2,
         blockId: 1,
-        modalOpen: false
+        modalOpen: false,
+
+        //temple
+        temple: [],
+        templeStoneArray: [],
+        templeDock:false,
+        templeStonePlacement: 0,
+        templeCount: {
+            black: 0
+        },
+        templePoints: {}
     }
     componentDidMount(){
         this.createShipElement();
@@ -128,12 +138,82 @@ class App extends Component {
             this.createShipElement();   
         }
     }
-    shipDockedToDestination(){
-        
+    //destination
+    checkShipBlock(shipIndex){
+        // debugger;
+        const {shipsArray} = this.state;
+        if(shipsArray[shipIndex].length > 0){
+            return true;
+        }else{
+            return false;
+        }
     }
+
+
+    //temple
+    async moveShipBlock(shipIndex){
+        // debugger;
+        if(this.checkShipBlock(shipIndex) && !this.state.templeDock){
+        let {ships, shipsArray, destinationArray, templeStoneArray, templeStonePlacement} = this.state;
+            const movingShipArray = ships[shipIndex];
+            const newShipsArray = [...ships];
+            newShipsArray[shipIndex] = 0;
+
+            const newDestinationArray = destinationArray;
+            newDestinationArray[shipIndex] = movingShipArray;
+
+            const movingShipBlockArray = shipsArray[shipIndex];
+            const newShipBlocksArray = [...shipsArray];
+            newShipBlocksArray[shipIndex] = [];
+            const newTempleStoneArray = templeStoneArray;
+            for(let index = 0; index < movingShipBlockArray.length; index++){
+                if(templeStoneArray.length < 5){
+                    newTempleStoneArray.push(movingShipBlockArray[index]);
+                } else {
+                    newTempleStoneArray[templeStonePlacement] = movingShipBlockArray[index];
+                    templeStonePlacement++
+                    if(templeStoneArray === 5){
+                        templeStonePlacement = 0;
+                    }
+                }
+                this.countTempleBlocks(movingShipBlockArray[index]);
+                console.log('moving ships', movingShipBlockArray[index]);
+            }            
+            console.log('value of newshiparray', newDestinationArray);
+            await this.setState({
+                ships: newShipsArray,
+                shipsArray: newShipBlocksArray,
+                templeDock: true,
+                destinationArray: newDestinationArray,
+                templeStoneArray: newTempleStoneArray,
+                templeStonePlacement
+            });
+        }
+    }
+
+    countTempleBlocks(templeBlocks){
+        debugger;
+        let {templeCount} = this.state;
+        let newtempleCount = templeCount;
+        const color = templeBlocks.props['color']
+            if(!(templeCount[color])){
+                this.setState({
+                    templeCount: {...templeCount, [color] : 1}
+            })
+        } 
+    }
+
+    // calculateTemplePoints(){
+    //     let {templeStoneArray, templePoints} = this.state;
+    //     for(let index = 0; index < templeStoneArray.length; index++){
+            
+    //     }
+    // }
+
     render(){
-        console.log(this.state.ships);
-        const {ships, playersArray, modalOpen} = this.state;
+
+        console.log(this.state.templeCount);
+        const {ships, playersArray, modalOpen, templeStoneArray} = this.state;
         return (
             <div className="header">
                 <h1 className="title">Imhotep</h1>
@@ -146,26 +226,34 @@ class App extends Component {
                 </Modal>
                 {playersArray}
                 {ships}
-                <Temple/>
+                <div className="overallDestinationContainer">
+                    <Temple moveShipBlock = {this.moveShipBlock.bind(this)} shipIndex = {0} templeArray={templeStoneArray}/>
+                </div>
             </div>    
         )
     }
 
-
-
-
-
-
-    //move ship counter to Temple
-        checkShipBlock(){
-        const {players, currentPlayer} = this.state;
-        if(players[currentPlayer].blocks.length > 0){
-            return true;
-        }else{
-            return false;
-        }
-    }
 }
+
+// async moveBlock(currentShip){
+//     if(checkShipBlock()){
+//         let {players, currentPlayer, shipsArray} = this.state;
+//         const newBlockArray = players[currentPlayer].blocks.slice(1);
+//         const movingBlock = [...players[currentPlayer].blocks].shift();
+//         const newShipArray = [...shipsArray[currentShip], movingBlock];
+//         const newShipsArray = [...shipsArray];
+//         newShipsArray[currentShip] = newShipArray;
+//         const newPlayerObject = {...players[currentPlayer], ['blocks']: newBlockArray};
+//         const newPlayerArray = [...players];
+//         newPlayerArray[currentPlayer] = newPlayerObject;
+//         await this.setState({
+//             players: newPlayerArray,
+//             shipsArray: newShipsArray
+//         })
+//         this.createShipElement();   
+//     }
+// }
 
 
 export default App;
+ 

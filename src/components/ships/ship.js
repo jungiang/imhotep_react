@@ -23,7 +23,7 @@ class Ship extends Component{
         })
     }
     addBlockToShip(){
-        let {currentBlocks, maxBlocks} = this.state;
+        let {currentBlocks, maxBlocks, minBlocksToSail} = this.state;
         if(currentBlocks < maxBlocks){
             this.setState({
                 currentBlocks: currentBlocks + 1
@@ -32,6 +32,7 @@ class Ship extends Component{
         }else{
             alert('ship is full');
         }
+
     }
     render(){
         const {style} = this.state;
